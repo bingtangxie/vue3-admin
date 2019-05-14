@@ -1,0 +1,52 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>
+        盒子模型
+    </title>
+    <style>
+    *{
+        margin:0;
+        padding:0;
+    }
+    body{
+        text-align:center;
+    }
+    div{
+        width:200px;
+        height:200px;
+        margin:0 auto;
+    }
+    #div1{
+        margin-top:10px;
+        background:red;
+    }
+    #div1:after{
+        content: ' ';
+        display: table;
+    }
+    #parent:after {
+         content: '  ';
+         display: table;
+         clear: both;
+     }
+    #div11{
+        margin-top:20px;
+        width:0;
+        height:0;
+        background:yellow;
+    }
+    #div12{
+        margin-top:30px;
+        width:50px;
+        height:50px;
+        background:blue;
+    }
+    </style>
+</head>
+<body>
+    <div id="div1">
+        <div id="div11"></div>
+        <div id="div12"></div>
+    </div>
+</body>

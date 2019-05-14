@@ -1,7 +1,11 @@
 <template>
     <div class="home">
-        {{ homeMsg }}
-    
+        <!-- {{ homeMsg }} -->
+        <Header />
+        <LeftMenu />
+        <div class="right-box">
+            <router-view></router-view>
+        </div>
     </div>
 </template>
 <script>
@@ -21,5 +25,10 @@ import LeftMenu from '@/components/LeftMenu.vue'
 </script>
 
 <style>
-
+.right-box{
+    position: relative;
+    left: 180px;
+    width: calc(100% - 180px);
+    height: calc(100% - 71px);
+}
 </style>
