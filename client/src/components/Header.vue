@@ -7,10 +7,10 @@
           </el-col>
           <el-col :span="6" class="user">
             <div class="userinfo">
-                <!-- <img  class="avatar" :src="users.avatar"> -->
+                <!-- <img  class="avatar" :src="user.avatar"> -->
                 <div class="welcome">
                     <p class="name comename">欢迎</p>
-                    <p class="name avatarname">{{users.name}}</p>   
+                    <p class="name avatarname">{{user.name}}</p>   
                 </div>
                 <span class='username'>
                     <el-dropdown
@@ -33,6 +33,7 @@
 
 <script>
 // @ is an alias to /src
+import axios from 'axios'
 export default {
   name: 'header-nav',
 //   computed:{
@@ -41,9 +42,7 @@ export default {
 //       }
     data(){
         return {
-            users: {
-                name: "xiebingtang"
-            }
+            user: {}
         }
   },
   methods:{
@@ -69,7 +68,19 @@ export default {
         this.$store.dispatch('createUser')
         //路由跳转
         this.$router.push('/login')
+    },
+    getUser(){
+        axios.get("/api/users").then((response) => {
+            console.log(response.data)
+            this.user = response.data
+        })
+        .catch((error) => {
+            console.log(error)
+        })
     }
+  },
+  mounted(){
+      this.getUser()
   }
 }
 </script>
