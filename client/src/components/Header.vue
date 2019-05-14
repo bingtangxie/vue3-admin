@@ -36,14 +36,15 @@
 import axios from 'axios'
 export default {
   name: 'header-nav',
-//   computed:{
-//       users() {  //通过vuex获取用户信息
-//         return this.$store.getters.user
-//       }
-    data(){
-        return {
-            user: {}
-        }
+  computed:{
+      user: function() {  //通过vuex获取用户信息
+        return this.$store.getters.user
+      }
+//     data(){
+//         console.log("user: ", this.$store.getters.user)
+//         return {
+//             user: this.$store.getters.user
+//         }
   },
   methods:{
     setDialogInfo(cmditem){
@@ -72,7 +73,8 @@ export default {
     getUser(){
         axios.get("/api/users").then((response) => {
             console.log(response.data)
-            this.user = response.data
+            this.$store.commit('changeUser', response.data)
+            console.log(this.$store.getters.user)
         })
         .catch((error) => {
             console.log(error)
