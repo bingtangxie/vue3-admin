@@ -34,12 +34,16 @@
 <script>
 // @ is an alias to /src
 import axios from 'axios'
+import { mapGetters } from 'vuex'
 export default {
   name: 'header-nav',
   computed:{
-      user: function() {  //通过vuex获取用户信息
-        return this.$store.getters.user
-      }
+      ...mapGetters('user', {
+          user: 'user'
+      })
+    //   user: function() {  //通过vuex获取用户信息
+    //     return this.$store.getters.user
+    //   }
 //     data(){
 //         console.log("user: ", this.$store.getters.user)
 //         return {
@@ -70,20 +74,10 @@ export default {
         //路由跳转
         this.$router.push('/login')
     },
-    getUser(){
-        axios.get("/api/users").then((response) => {
-            console.log(response.data)
-            this.$store.commit('changeUser', response.data)
-            console.log(this.$store.getters.user)
-        })
-        .catch((error) => {
-            console.log(error)
-        })
-    }
   },
   mounted(){
       if (this.$store.state.user != {}){
-        this.$store.dispatch('fetchUser')
+        this.$store.dispatch('user/fetchUser')
       }
   }
 }
