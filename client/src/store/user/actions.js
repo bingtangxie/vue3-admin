@@ -1,9 +1,9 @@
 import {reqUser} from '@/services/api'
 export default {
 
-    async fetchUser(context){
+    async fetchUser({commit}, payload){
         let data = await reqUser()
         console.log('data: ', data)
-        context.commit('changeUser', data)
+        commit('changeUser', data)
       }
     }

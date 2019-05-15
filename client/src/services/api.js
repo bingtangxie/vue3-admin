@@ -11,3 +11,9 @@ export async function reqUser(){
     // })
     return request('/api/users')
 }
+export async function addStaff(params){
+    return request('/api/staff/add', {
+        method: 'POST',
+        data: {...params}
+    })
+}

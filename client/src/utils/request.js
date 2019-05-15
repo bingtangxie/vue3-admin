@@ -63,11 +63,12 @@ const codeMessage = {
  * @param  {object} [options] The options we want to pass to "fetch"
  * @return {object}           An object containing either "data" or "err"
  */
-export default function request(url, type) {
+export default function request(url, option) {
+    console.log('option', option)
   const options = {
-    method: type || 'GET',
+    method: option ? option.method : 'GET',
     url: url,
-    data: {},
+    data: option ? option.data : {},
   };
   const defaultOptions = {
     credentials: 'include',
