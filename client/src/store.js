@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import axios from 'axios'
 
 Vue.use(Vuex)
 
@@ -18,6 +19,13 @@ export default new Vuex.Store({
     }
   },
   actions: {
-
+    fetchUser(context){
+      axios.get("/api/users").then((response) => {
+        context.commit('changeUser', response.data)
+    })
+    .catch((error) => {
+        console.log(error)
+    })
+    }
   }
 })

@@ -43,7 +43,7 @@ export default {
 //     data(){
 //         console.log("user: ", this.$store.getters.user)
 //         return {
-//             user: this.$store.getters.user
+//             user: this.$store.state.user
 //         }
   },
   methods:{
@@ -82,7 +82,9 @@ export default {
     }
   },
   mounted(){
-      this.getUser()
+      if (this.$store.state.user != {}){
+        this.$store.dispatch('fetchUser')
+      }
   }
 }
 </script>
