@@ -64,7 +64,6 @@ const codeMessage = {
  * @return {object}           An object containing either "data" or "err"
  */
 export default function request(url, option) {
-    console.log('option', option)
   const options = {
     method: option ? option.method : 'GET',
     url: url,
@@ -87,7 +86,8 @@ export default function request(url, option) {
         'Content-Type': 'application/json; charset=utf-8',
         ...newOptions.headers,
       };
-      newOptions.body = JSON.stringify(newOptions.body);
+      newOptions.data = JSON.stringify(newOptions.data);
+      console.log('newOptions: ',newOptions)
     } else {
       // newOptions.body is FormData
       newOptions.headers = {

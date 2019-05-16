@@ -2,7 +2,8 @@ import {addStaff} from '@/services/api'
 export default {
 
     async add({commit}, payload){
-        let data = await addStaff()
+       const params = payload.data
+        let data = await addStaff(params)
         if(data){
             if(payload.callback){
                 payload.callback(data)

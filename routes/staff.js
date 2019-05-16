@@ -4,6 +4,7 @@ var Mock = require('mockjs')
 
 /* GET users listing. */
 router.post('/add', function(req, res, next) {
+  console.log(req.body)
   res.json(Mock.mock({
       roles: ['admin'],
       token: 'admin',

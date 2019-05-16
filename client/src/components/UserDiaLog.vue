@@ -4,7 +4,7 @@
             :title="dialog.title"
             type="primary"
             size="small"
-            :close-on-press-escape="false"
+            :close-on-press-escape="true"
             :modal-append-to-body="false"
             :close-on-click-modal="false"
             :visible.sync="dialog.show"
@@ -59,7 +59,7 @@ export default {
             this.$refs['dialogForm'].validate(valid => {
                 if(valid){
                     // console.log("valid is ok")
-                    console.log(this.form)
+                    // console.log(this.form)
                     this.$store.dispatch('staff/add', {
                         method: 'POST',
                         data: {

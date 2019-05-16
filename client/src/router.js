@@ -31,7 +31,7 @@ export default new Router({
        { path: "/listuser", name: "listuser", component: ListUser },
        { path: "/foundlist", name: "fundlist", component: FundList },
        { path: "/Infoshow", name: "Infoshow", component: InfoShow },
-       { path: "/chinaTabsList", name: "ChinaTabsList", component: ChinaTabsList },
+       { path:  "/chinaTabsList", name: "ChinaTabsList", component: ChinaTabsList },
        { path: "/chinaTouziList", name: "chinaTouziList", component: ChinaTouziList },
        { path: "/maplist", name: "maplist", component: MapList },
      ]
