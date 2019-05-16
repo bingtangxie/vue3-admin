@@ -59,14 +59,22 @@ export default {
             this.$refs['dialogForm'].validate(valid => {
                 if(valid){
                     // console.log("valid is ok")
-                    // console.log(this.form)
-                    this.$store.dispatch('staff/add', {
+                    console.log(this.form)
+                    let actionName = this.dialog.option == 'add' ? 'add': 'edit'
+                    let msg = this.dialog.option == 'add' ? '数据添加成功': '数据修改成功'
+                    this.$store.dispatch(`staff/${actionName}`, {
                         method: 'POST',
                         data: {
                             ...this.form
                         },
                         callback: (data) => {
-                            console.log('staffData: ', data)
+                            if (data.status === 'ok'){
+                                this.$message({
+                                type: "success",
+                                message: msg
+                                })
+                                this.$store.dispatch('staff/get')
+                            }
                         }
                     })
                     this.dialog.show = false        

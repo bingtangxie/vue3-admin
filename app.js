@@ -3,6 +3,8 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var mongoose = require('mongoose');
+var db = require('./config/conf').mongoURI
 
 
 var indexRouter = require('./routes/index');
@@ -24,6 +26,18 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/staff', staffRouter);
+
+
+//链接MongoDB
+mongoose
+	.connect(
+		db,
+		{ useNewUrlParser: true }
+	)
+	.then(() => {
+		console.log('MongoDB Connected链接成功');
+	})
+	.catch(err => console.log(err));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

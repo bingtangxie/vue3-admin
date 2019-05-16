@@ -1,6 +1,10 @@
 import {addStaff} from '@/services/api'
-export default {
+import { getStaff } from '../../services/api';
+import {delStaff} from '../../services/api'
+import {getOne} from '../../services/api'
+import {edit} from '../../services/api'
 
+export default {
     async add({commit}, payload){
        const params = payload.data
         let data = await addStaff(params)
@@ -9,5 +13,38 @@ export default {
                 payload.callback(data)
             }
         }
-      }
+      },
+    async get({commit}){
+        let data = await getStaff()
+        console.log('starff_get_data: ', data)
+        if(data){
+            commit('saveStaffList', data)
+        }
+    },
+    async delete({commit}, payload){
+        let data = await delStaff(payload)
+        if(data){
+            if(payload.callback){
+                payload.callback(data)
+            }
+        }
+    },
+    async getOne({commit}, payload){
+        const { id } = payload
+        let data = await getOne(id)
+        if(data){
+            if(payload.callback){
+                payload.callback(data)
+            }
+        }
+    },
+    async edit({commit}, payload){
+        const { data } = payload
+        let result = await edit(data)
+        if(result){
+            if(payload.callback){
+                payload.callback(result)
+            }
+        }
     }
+}

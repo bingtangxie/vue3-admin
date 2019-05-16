@@ -40,10 +40,11 @@
                 <el-table-column 
                     fixed="right"
                     label="操作"
+                    width="180"
                 >
-                    <template>
-                        <el-button>查看</el-button>
-                        <el-button>编辑</el-button>
+                    <template slot-scope="scope">
+                        <el-button size="mini" @click="openEdit(scope.$index, scope.row)">编辑</el-button>
+                        <el-button size="mini" @click="delStaff(scope.$index, scope.row)">删除</el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -53,10 +54,11 @@
 </template>
 <script>
     import UserDiaLog from '@/components/UserDiaLog.vue'
+import { mapGetters } from 'vuex';
     export default {
         data(){
             return {
-                userData: [],
+                // userData: [],
                 dialog: {
                     title: "",
                     show: false,
@@ -68,10 +70,15 @@
                     status: "",
                     hobbies: "",
                     wedded: "",
-                    birtday: "",
+                    birthday: "",
                     address: ""
                 }
             }
+        },
+        computed: {
+            ...mapGetters('staff',{
+                userData: 'staffList'
+            })
         },
         methods: {
             openAdd(){
@@ -82,17 +89,51 @@
                 }
                 this.form = {
                     name: "",
-                    sex: "",
-                    state: "",
-                    hobby: "",
-                    marriage: "",
+                    gender: "",
+                    status: "",
+                    hobbies: "",
+                    wedded: "",
                     birthday: "",
                     address: ""
                 }
             },
+            openEdit(index, row){
+                   this.dialog = {
+                    title: "编辑信息",
+                    show: true,
+                    option:"edit"
+                }
+                this.$store.dispatch('staff/getOne', {
+                    id: row._id,
+                    callback: (data) => {
+                        if(data){
+                            this.form = data
+                        }
+                    }
+                })
+
+            },
             userInfo(){
-                console.log("ok")
-            }
+                this.$store.dispatch('staff/get')
+            },
+            delStaff(index, row){
+                console.log('val: ', row._id)
+                this.$store.dispatch('staff/delete', {
+                    id: row._id,
+                    callback: (data)=>{
+                        console.log('delete: ', data)
+                        if(data.status === 'ok'){
+                            this.$store.dispatch('staff/get')
+                        }
+                    }
+                })
+            },
+            updateStaff(index, row){
+
+            },
+        },
+        created(){
+            this.$store.dispatch('staff/get')
         },
         components: {
             UserDiaLog

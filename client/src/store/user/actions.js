@@ -6,4 +6,4 @@ export default {
         // console.log('data: ', data)
         commit('changeUser', data)
       }
-    }
+}

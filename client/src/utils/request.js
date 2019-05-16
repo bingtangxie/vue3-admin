@@ -65,9 +65,9 @@ const codeMessage = {
  */
 export default function request(url, option) {
   const options = {
-    method: option ? option.method : 'GET',
+    method: option ? (option.method ? option.method : 'GET') : 'GET',
     url: url,
-    data: option ? option.data : {},
+    data: option ? (option.data ? option.data : {}) : {},
   };
   const defaultOptions = {
     credentials: 'include',
@@ -87,7 +87,7 @@ export default function request(url, option) {
         ...newOptions.headers,
       };
       newOptions.data = JSON.stringify(newOptions.data);
-      console.log('newOptions: ',newOptions)
+      // console.log('newOptions: ',newOptions)
     } else {
       // newOptions.body is FormData
       newOptions.headers = {

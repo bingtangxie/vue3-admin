@@ -12,9 +12,27 @@ export async function reqUser(){
     return request('/api/users')
 }
 export async function addStaff(params){
-    console.log('params', params)
     return request('/api/staff/add', {
         method: 'POST',
         data: {...params}
+    })
+}
+
+export async function getStaff(){
+    return request(`/api/staff/get`)
+}
+
+export async function delStaff(params){
+    console.log(params)
+    return request(`/api/staff/delete?id=${params.id}`)
+}
+
+export async function getOne(staffId){
+    return request(`/api/staff/getOne?id=${staffId}`)
+}
+export async function edit(data){
+    return request('/api/staff/edit',{
+        method: 'POST',
+        data: data
     })
 }
