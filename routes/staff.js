@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var Mock = require('mockjs')
 var Staff = require('../models/Staff')
+var moment = require('moment')
 
 /* GET users listing. */
 router.post('/add', function(req, res, next) {
@@ -25,19 +26,39 @@ router.post('/add', function(req, res, next) {
 router.get('/get', async function(req, res, next) {
   const currentPage = req.query.currentPage || 1
   const pageSize = 10
-  const total = await Staff.count()
+  const start = req.query.start
+  const end = req.query.end
+  const total = await Staff.countDocuments()
+  let result = {}
   Staff.find().sort({"date": -1}).skip((currentPage -1)*pageSize).limit(pageSize).then(data => {
     if (data){
-      // console.log('get: ', data)
-      result = {
-        staffList: data,
-        pagination: {
-          currentPage: currentPage,
-          pageSize: pageSize,
-          total: total
+      if (start  && end ){
+          const newData = data.filter((item) => {
+          const createDate = moment(item.date).format('YYYY-MM-DD HH:mm:ss')
+          // 字符串直接比较大小
+          if (createDate>=start&&createDate<=end){
+            return true
+          }
+        })
+        result = {
+          staffList: newData,
+          pagination: {
+            currentPage: currentPage,
+            pageSize: pageSize,
+            total: total
+          }
+        }
+      }else{
+        result = {
+          staffList: data,
+          pagination: {
+            currentPage: currentPage,
+            pageSize: pageSize,
+            total: total
+          }
         }
       }
-      console.log(result)
+      // console.log(result)
       res.json(result)
     }
   })

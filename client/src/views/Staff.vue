@@ -1,7 +1,32 @@
 <template>
     <div class="staff">
         <div class="staff-top">
-            <el-button type="primary" @click="openAdd()">添加</el-button>
+            <el-form :inline="true" ref="search" :model="searchData" :rules="searchRules">
+                <el-form-item label="请选择时间" required>
+                    <el-form-item prop="startDate">
+                        <el-date-picker
+                            v-model="searchData.startDate"
+                            type="datetime"
+                            placeholder="选择开始时间">
+                        </el-date-picker>
+                    </el-form-item>
+							---
+                    <el-form-item prop="endDate">
+                        <el-date-picker
+                            v-model="searchData.endDate"
+                            type="datetime"
+                            placeholder="选择结束时间">
+                        </el-date-picker>
+                    </el-form-item>
+                </el-form-item>
+                <el-form-item>
+					<el-button type="primary" icon="el-icon-search" @click='handleSearch()'>查询</el-button>
+				</el-form-item>
+                 <el-form-item class="add">
+					 <el-button type="primary" @click="openAdd()" >添加</el-button>
+				</el-form-item>
+            </el-form>
+           
         </div>
         <div class="staff-table">
             <el-table :data="userData" style="width: 100%">
@@ -90,8 +115,15 @@ import moment from 'moment';
                     birthday: "",
                     address: ""
                 },
-                
-                layout: "total, prev, pager, next, jumper"
+                searchData: {
+                    startDate: '',
+                    endDate: ''
+                },
+                layout: "total, prev, pager, next, jumper",
+                searchRules: {
+                    startDate: [{required: true, type: "date", message: "起始时间必填", trigger: "change"}],
+                    endDate: [{required: true, type: "date", message: "结束时间必填", trigger: "change"}],
+                }
 
             }
         },
@@ -186,7 +218,23 @@ import moment from 'moment';
                 this.$store.dispatch('staff/get', {
                     currentPage: val
                 })
-            }
+            },
+            handleSearch(){
+                // console.log(this.searchData.startDate, this.searchData.endDate)
+                this.$refs['search'].validate(valid => {
+                    if(valid){
+                            this.$store.dispatch('staff/get', {
+                            start: moment(this.searchData.startDate).format('YYYY-MM-DD HH:mm:ss'),
+                            end: moment(this.searchData.endDate).format('YYYY-MM-DD HH:mm:ss')
+                        })
+                    }else{
+                    console.log("error submit!")
+                    return false   // 返回false，禁止关闭
+                }
+                })
+                
+            },
+            
         },
         created(){
             this.$store.dispatch('staff/get')
@@ -201,5 +249,11 @@ import moment from 'moment';
         float: right;
         margin-top: 20px;
         margin-right: 20px;
+    }
+    .add{
+        float: right;
+    }
+    .staff-top{
+        margin: 20px;
     }
 </style>
