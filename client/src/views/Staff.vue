@@ -75,6 +75,7 @@ import moment from 'moment';
         data(){
             return {
                 // userData: [],
+                visible: false,
                 dialog: {
                     title: "",
                     show: false,
@@ -157,15 +158,28 @@ import moment from 'moment';
                 this.$store.dispatch('staff/get')
             },
             delStaff(index, row){
-                console.log('val: ', row._id)
+                this.$confirm('确认删除该记录吗？','提示', {
+                    confirmButtonText: "确定",
+					cancelButtonText: "取消",
+                    type: 'warning'
+                }).then(() => {
                 this.$store.dispatch('staff/delete', {
                     id: row._id,
                     callback: (data)=>{
-                        console.log('delete: ', data)
                         if(data.status === 'ok'){
+                            this.$message({
+							message: '删除成功',
+							type: 'success'
+						});
                             this.$store.dispatch('staff/get')
                         }
                     }
+                })
+                }).catch(()=>{
+                    this.$message({
+							type: "info",
+							message: "已取消删除"
+						});
                 })
             },
             handleCurrentChange(val){
