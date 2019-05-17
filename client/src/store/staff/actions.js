@@ -14,11 +14,23 @@ export default {
             }
         }
       },
-    async get({commit}){
-        let data = await getStaff()
-        console.log('starff_get_data: ', data)
-        if(data){
-            commit('saveStaffList', data)
+    async get({commit}, payload){
+        if(payload){
+            let data = await getStaff(payload)
+            // console.log('starff_get_data: ', data)
+            if(data){
+                console.log(data)
+                commit('saveStaffList', data.staffList)
+                commit('savePagination', data.pagination)
+            }
+        }else{
+            let data = await getStaff()
+            // console.log('starff_get_data: ', data)
+            if(data){
+                console.log(data)
+                commit('saveStaffList', data.staffList)
+                commit('savePagination', data.pagination)
+            }
         }
     },
     async delete({commit}, payload){

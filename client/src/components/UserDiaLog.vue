@@ -55,7 +55,8 @@ export default {
             // rules属性指定验证规则
             formdialog: {
                 name: [{ required: true, message: "用户名不能为空", trigger: "blur" }],
-                gender: [{ required: true, message: "性别不能为空", trigger: "blur" }]
+                gender: [{ required: true, message: "性别不能为空", trigger: "blur" }],
+                birthday: [{type: 'date', message: 'string', trigger: "blur"}]
             },
         }
     },

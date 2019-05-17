@@ -53,6 +53,15 @@
                     </template>
                 </el-table-column>
             </el-table>
+            <div class="page">
+                <el-pagination
+                    @current-change="handleCurrentChange"
+                    :current-page="pagination.page_index"
+                    :page-size="pagination.page_size"
+                    :layout="layout"
+                    :total="pagination.total">
+                </el-pagination>
+            </div>
         </div>
         <UserDiaLog :form="form" :dialog="dialog"/>
     </div>
@@ -79,12 +88,16 @@ import moment from 'moment';
                     wedded: "",
                     birthday: "",
                     address: ""
-                }
+                },
+                
+                layout: "total, prev, pager, next, jumper"
+
             }
         },
         computed: {
             ...mapGetters('staff',{
-                userData: 'staffList'
+                userData: 'staffList',
+                pagination: 'pagination'
             })
         },
         methods: {
@@ -155,9 +168,11 @@ import moment from 'moment';
                     }
                 })
             },
-            updateStaff(index, row){
-
-            },
+            handleCurrentChange(val){
+                this.$store.dispatch('staff/get', {
+                    currentPage: val
+                })
+            }
         },
         created(){
             this.$store.dispatch('staff/get')
@@ -167,3 +182,10 @@ import moment from 'moment';
         }
     }
 </script>
+<style scoped>
+    .page{
+        float: right;
+        margin-top: 20px;
+        margin-right: 20px;
+    }
+</style>

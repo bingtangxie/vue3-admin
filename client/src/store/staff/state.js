@@ -1,3 +1,4 @@
 export default {
-    staffList: []
+    staffList: [],
+    pagination: {}
 }

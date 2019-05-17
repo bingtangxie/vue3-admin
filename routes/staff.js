@@ -22,11 +22,23 @@ router.post('/add', function(req, res, next) {
     })
   })
 });
-router.get('/get', function(req, res, next) {
-  Staff.find().then(data => {
+router.get('/get', async function(req, res, next) {
+  const currentPage = req.query.currentPage || 1
+  const pageSize = 10
+  const total = await Staff.count()
+  Staff.find().sort({"date": -1}).skip((currentPage -1)*pageSize).limit(pageSize).then(data => {
     if (data){
       // console.log('get: ', data)
-      res.json(data)
+      result = {
+        staffList: data,
+        pagination: {
+          currentPage: currentPage,
+          pageSize: pageSize,
+          total: total
+        }
+      }
+      console.log(result)
+      res.json(result)
     }
   })
 });

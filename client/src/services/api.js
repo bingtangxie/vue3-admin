@@ -18,8 +18,12 @@ export async function addStaff(params){
     })
 }
 
-export async function getStaff(){
-    return request(`/api/staff/get`)
+export async function getStaff(params){
+    if (params){
+        return request(`/api/staff/get?currentPage=${params.currentPage}`)
+    }else{
+        return request(`/api/staff/get`)
+    }
 }
 
 export async function delStaff(params){
