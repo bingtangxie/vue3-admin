@@ -20,14 +20,16 @@ export async function addStaff(params){
 
 export async function getStaff(params){
     if (params){
-        return request(`/api/staff/get?currentPage=${params.currentPage}`)
+        let start = params.start || ''
+        let end = params.end || ''
+        return request(`/api/staff/get?currentPage=${params.currentPage}&&start=${start}&&end=${end}`)
     }else{
         return request(`/api/staff/get`)
     }
 }
 
 export async function delStaff(params){
-    console.log(params)
+    // console.log(params)
     return request(`/api/staff/delete?id=${params.id}`)
 }
 

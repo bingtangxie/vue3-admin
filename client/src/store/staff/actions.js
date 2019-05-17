@@ -19,7 +19,6 @@ export default {
             let data = await getStaff(payload)
             // console.log('starff_get_data: ', data)
             if(data){
-                console.log(data)
                 commit('saveStaffList', data.staffList)
                 commit('savePagination', data.pagination)
             }
@@ -27,7 +26,7 @@ export default {
             let data = await getStaff()
             // console.log('starff_get_data: ', data)
             if(data){
-                console.log(data)
+                // console.log(data)
                 commit('saveStaffList', data.staffList)
                 commit('savePagination', data.pagination)
             }
