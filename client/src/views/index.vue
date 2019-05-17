@@ -26,9 +26,10 @@ import LeftMenu from '@/components/LeftMenu.vue'
 
 <style>
 .right-box{
-    position: relative;
+    position: fixed;
     left: 180px;
     width: calc(100% - 180px);
     height: calc(100% - 71px);
+    overflow-y: scroll
 }
 </style>

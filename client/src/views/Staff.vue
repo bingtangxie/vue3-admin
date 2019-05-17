@@ -8,6 +8,7 @@
                 <el-table-column 
                     prop="date"
                     label="日期"
+                    :formatter="dateFormat"
                 />
                 <el-table-column 
                     prop="name"
@@ -16,10 +17,12 @@
                 <el-table-column 
                     prop="gender"
                     label="性别"
+                    :formatter="genderFormat"
                 />
                 <el-table-column 
                     prop="status"
                     label="状态"
+                    :formatter="statusFormat"
                 />
                 <el-table-column 
                     prop="hobbies"
@@ -28,10 +31,12 @@
                 <el-table-column 
                     prop="wedded"
                     label="是否已婚"
+                    :formatter="weddedFormat"
                 />
                 <el-table-column 
                     prop="birthday"
                     label="生日"
+                    :formatter="dateFormat"
                 />
                 <el-table-column 
                     prop="address"
@@ -53,8 +58,10 @@
     </div>
 </template>
 <script>
-    import UserDiaLog from '@/components/UserDiaLog.vue'
+import UserDiaLog from '@/components/UserDiaLog.vue'
 import { mapGetters } from 'vuex';
+import moment from 'moment';
+
     export default {
         data(){
             return {
@@ -112,6 +119,26 @@ import { mapGetters } from 'vuex';
                     }
                 })
 
+            },
+            dateFormat(row, col, cellValue, index){
+                const daterc = row[col.property]
+                // console.log(daterc)
+                return moment(daterc).format('YYYY-MM-DD')
+            },
+            genderFormat(row, col, cellValue, index){
+                const genderrc = row[col.property]
+                const gender = ['男', '女']
+                return gender[genderrc]
+            },
+            statusFormat(row, col, cellValue, index){
+                const statusrc = row[col.property]
+                const status = ['激活', '冻结']
+                return status[statusrc]
+            },
+            weddedFormat(row, col, cellValue, index){
+               const weddedrc = row[col.property]
+               const wedded = ['已婚', '未婚']
+               return wedded[weddedrc]
             },
             userInfo(){
                 this.$store.dispatch('staff/get')

@@ -99,7 +99,8 @@ export default {
   position: fixed;
   top: 71px;
   left: 0;
-  min-height: 100%;
+  height: 100vh;
+  /* min-height: 100%; */
   background-color: #324057;
   z-index: 99;
 }

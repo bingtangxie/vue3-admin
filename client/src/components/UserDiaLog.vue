@@ -14,16 +14,25 @@
                     <el-input v-model="form.name" />
                 </el-form-item>
                 <el-form-item label="性别" prop="gender">
-                    <el-input v-model="form.gender" />
+                    <template>
+                        <el-radio v-model="form.gender" label=0>男</el-radio>
+                        <el-radio v-model="form.gender" label=1>女</el-radio>
+                    </template>
                 </el-form-item>
                 <el-form-item label="状态" prop="status">
-                    <el-input v-model="form.status" />
+                    <template>
+                        <el-radio v-model="form.status" label=0>激活</el-radio>
+                        <el-radio v-model="form.status" label=1>冻结</el-radio>
+                    </template>
                 </el-form-item>
                 <el-form-item label="爱好" prop="hobbies">
                     <el-input v-model="form.hobbies" />
                 </el-form-item>
                 <el-form-item label="是否已婚" prop="wedded">
-                    <el-input v-model="form.wedded" />
+                   <template>
+                        <el-radio v-model="form.wedded" label=0>已婚</el-radio>
+                        <el-radio v-model="form.wedded" label=1>未婚</el-radio>
+                    </template>
                 </el-form-item>
                 <el-form-item label="生日" prop="birthday">
                     <el-date-picker v-model="form.birthday" type="date" placeholder="选择日期"/>
@@ -47,7 +56,7 @@ export default {
             formdialog: {
                 name: [{ required: true, message: "用户名不能为空", trigger: "blur" }],
                 gender: [{ required: true, message: "性别不能为空", trigger: "blur" }]
-            }
+            },
         }
     },
     props: {
