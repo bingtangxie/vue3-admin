@@ -42,3 +42,18 @@ export async function edit(data){
         data: data
     })
 }
+
+export async function RegisterUser(params){
+    return request(`/api/users/register`, {
+        method: 'POST',
+        data: params
+    })
+
+}
+
+export async function LoginUser(params){
+    return request(`/api/users/login`, {
+        method: 'POST',
+        data: params
+    })
+}
